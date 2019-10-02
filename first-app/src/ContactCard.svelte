@@ -66,6 +66,6 @@
     </div>
   </header>
   <div class="description">
-    <p>A short description</p>
+    <p>A short description!</p>
   </div>
 </div>
