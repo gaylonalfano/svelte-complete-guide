@@ -3,6 +3,9 @@
 
   let name = "Gaylon";
   let age = 30;
+  let jobTitle;
+  let jobDescription;
+  let userImage;
 
   // let uppercaseName;  NOT required!
 
@@ -26,6 +29,14 @@
     const enteredValue = event.target.value;
     name = enteredValue;
   }
+  function jobTitleInput(event) {
+    const enteredValue = event.target.value;
+    jobTitle = enteredValue;
+  }
+  function jobDescriptionInput(event) {
+    const enteredValue = event.target.value;
+    jobDescription = enteredValue;
+  }
 </script>
 
 <style>
@@ -39,4 +50,7 @@
 <!-- <button on:click={changeName}>Change Name</button> -->
 <!-- <input type="text" value={name} on:input={nameInput} /> -->
 <input type="text" bind:value={name} />
-<ContactCard />
+<input type="text" bind:value={jobTitle} />
+<input type="text" bind:value={userImage} />
+<textarea rows="3" bind:value={jobDescription} />
+<ContactCard userName={name} {jobTitle} {jobDescription} {userImage} />
