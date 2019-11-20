@@ -2,6 +2,7 @@
   import Header from "./global-components/Header.svelte";
   import MeetupGrid from "./meetups/MeetupGrid.svelte";
   import TextInput from "./global-components/TextInput.svelte";
+  import Button from "./global-components/Button.svelte";
 
   let title = "";
   let subtitle = "";
@@ -101,7 +102,8 @@
       rows="3"
       value={description}
       on:input={event => (description = event.target.value)} />
-    <button type="submit">Save</button>
+    <Button type="submit" caption="Save" />
+    <!-- <button type="submit">Save</button> -->
   </form>
   <MeetupGrid {meetups} />
 </main>
