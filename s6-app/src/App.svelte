@@ -1,4 +1,5 @@
 <script>
+  import { tick } from "svelte";
   import Product from "./Product.svelte";
   import Modal from "./Modal.svelte";
 
@@ -15,6 +16,7 @@
     }
   ];
 
+  let text = "This is some dummy text for the tick example!";
   let showModal = false;
   let closeable = false;
 
@@ -24,6 +26,34 @@
 
   function deleteProduct(event) {
     console.log(event.detail);
+  }
+
+  function transform(event) {
+    if (event.which !== 9) {
+      // Stop execution if Tab not pressed
+      return;
+    }
+    // Prevent default behavior for Tab button
+    event.preventDefault();
+
+    // Extract the selection range
+    const selectionStart = event.target.selectionStart;
+    const selectionEnd = event.target.selectionEnd;
+    const value = event.target.value;
+
+    // Capitalize the selected text w/ Tab and update DOM
+    text =
+      value.slice(0, selectionStart) +
+      value.slice(selectionStart, selectionEnd).toUpperCase() +
+      value.slice(selectionEnd);
+
+    // Run tick() to return a promise that resolves once pending
+    // state changes have been applied to DOM
+    tick().then(() => {
+      // Reset the selection for our event target (i.e., textarea)
+      event.target.selectionStart = selectionStart;
+      event.target.selectionEnd = selectionEnd;
+    });
   }
 </script>
 
@@ -48,3 +78,5 @@
     </button>
   </Modal>
 {/if}
+
+<textarea rows="5" value={text} on:keydown={transform} />
