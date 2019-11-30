@@ -24,7 +24,7 @@
       subtitle: "Let's go for some swimming",
       description: "We'll work on some basic freestyle stroke fundamentals",
       imageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/d/df/Barnea_%28YPM_IZ_101781%29.jpeg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Soviet_POWs.jpg/1200px-Soviet_POWs.jpg",
       address: "111 Huai Hai Rd, 200201 Shanghai",
       contactEmail: "swim@test.com",
       isFavorite: false
@@ -33,17 +33,19 @@
 
   let editMode = false;
 
-  function addMeetup() {
+  function addMeetup(event) {
     const newMeetup = {
       id: Math.random().toString(),
-      title: title,
-      subtitle: subtitle,
-      description: description,
-      imageURL: imageURL,
-      address: address,
-      contactEmail: email
+      title: event.detail.title,
+      subtitle: event.detail.subtitle,
+      description: event.detail.description,
+      imageURL: event.detail.imageURL,
+      address: event.detail.address,
+      contactEmail: event.detail.email
     };
     meetups = [newMeetup, ...meetups];
+    // Close the form after submitting changes
+    editMode = false;
   }
 
   function toggleFavorite(event) {
@@ -78,10 +80,10 @@
 
 <main>
   <div class="meetup-controls">
-    <Button caption="New Meetup" on:click={() => (editMode = true)} />
+    <Button on:click={() => (editMode = true)}>New Meetup</Button>
   </div>
   {#if editMode}
-    <EditMeetup />
+    <EditMeetup on:saveMeetup={addMeetup} />
   {/if}
   <MeetupGrid {meetups} on:toggleFavorite={toggleFavorite} />
 </main>
