@@ -3,13 +3,7 @@
   import MeetupGrid from "./meetups/MeetupGrid.svelte";
   import TextInput from "./global-components/TextInput.svelte";
   import Button from "./global-components/Button.svelte";
-
-  let title = "";
-  let subtitle = "";
-  let address = "";
-  let email = "";
-  let description = "";
-  let imageURL = "";
+  import EditMeetup from "./meetups/EditMeetup.svelte";
 
   let meetups = [
     {
@@ -36,6 +30,8 @@
       isFavorite: false
     }
   ];
+
+  let editMode = false;
 
   function addMeetup() {
     const newMeetup = {
@@ -73,52 +69,19 @@
     margin-top: 5rem;
   }
 
-  form {
-    width: 30rem;
-    min-width: 90%;
-    margin: auto;
+  .meetup-controls {
+    margin: 1rem;
   }
 </style>
 
 <Header />
 
 <main>
-  <form on:submit|preventDefault={addMeetup}>
-    <TextInput
-      id="title"
-      label="Title"
-      value={title}
-      on:input={event => (title = event.target.value)} />
-    <TextInput
-      id="subtitle"
-      label="Subtitle"
-      value={subtitle}
-      on:input={event => (subtitle = event.target.value)} />
-    <TextInput
-      id="address"
-      label="Address"
-      value={address}
-      on:input={event => (address = event.target.value)} />
-    <TextInput
-      id="email"
-      label="Email"
-      type="email"
-      value={email}
-      on:input={event => (email = event.target.value)} />
-    <TextInput
-      id="imageURL"
-      label="Image URL"
-      value={imageURL}
-      on:input={event => (imageURL = event.target.value)} />
-    <TextInput
-      id="description"
-      label="Description"
-      controlType="textarea"
-      rows="3"
-      value={description}
-      on:input={event => (description = event.target.value)} />
-    <Button type="submit" caption="Save" />
-    <!-- <button type="submit">Save</button> -->
-  </form>
+  <div class="meetup-controls">
+    <Button caption="New Meetup" on:click={() => (editMode = true)} />
+  </div>
+  {#if editMode}
+    <EditMeetup />
+  {/if}
   <MeetupGrid {meetups} on:toggleFavorite={toggleFavorite} />
 </main>
