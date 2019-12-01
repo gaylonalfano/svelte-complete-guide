@@ -48,6 +48,10 @@
     editMode = false;
   }
 
+  function cancelEdit() {
+    editMode = false;
+  }
+
   function toggleFavorite(event) {
     // Capture the meetup id that's been clicked
     const id = event.detail;
@@ -64,6 +68,9 @@
     // Overwrite existing meetups array with our new updatedMeetups array to update DOM
     meetups = updatedMeetups;
   }
+
+  $: console.log(editMode);
+  $: editMode, console.log(`editMode is now: ${editMode}`);
 </script>
 
 <style>
@@ -83,7 +90,7 @@
     <Button on:click={() => (editMode = true)}>New Meetup</Button>
   </div>
   {#if editMode}
-    <EditMeetup on:saveMeetup={addMeetup} />
+    <EditMeetup on:saveMeetup={addMeetup} on:cancelEdit={cancelEdit} />
   {/if}
   <MeetupGrid {meetups} on:toggleFavorite={toggleFavorite} />
 </main>
