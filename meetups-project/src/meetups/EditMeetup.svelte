@@ -23,6 +23,10 @@
       imageURL: imageURL
     });
   }
+
+  function cancelEdit() {
+    dispatch("cancelEdit");
+  }
 </script>
 
 <style>
@@ -66,6 +70,9 @@
       rows="3"
       value={description}
       on:input={event => (description = event.target.value)} />
-    <!-- <Button type="submit">Save</Button> -->
   </form>
+  <div slot="footer">
+    <Button type="button" mode="outline" on:click={cancelEdit}>Cancel</Button>
+    <Button type="button" on:click={submitForm}>Save</Button>
+  </div>
 </Modal>
