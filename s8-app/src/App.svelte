@@ -4,9 +4,11 @@
 
   let val = "Gaylon";
   let selectedOption = 1;
+  let price = 0;
 
   $: console.log(val);
   $: console.log(selectedOption);
+  $: console.log(price);
 
   function setValue(event) {
     val = event.target.value;
@@ -23,3 +25,5 @@
 <CustomInput bind:val />
 <!-- Binding chosenOption to selectedOption -->
 <Toggle bind:chosenOption={selectedOption} />
+
+<input type="number" bind:value={price} />
