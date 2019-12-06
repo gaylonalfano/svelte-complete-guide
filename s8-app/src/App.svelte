@@ -10,6 +10,7 @@
   let singleFavColor = "red";
   let usernameInput;
   let someDiv;
+  let customInput;
 
   $: console.log(val);
   $: console.log(selectedOption);
@@ -17,6 +18,7 @@
   $: console.log(agreed);
   $: console.log(favColor);
   $: console.log(singleFavColor);
+  $: console.log(customInput);
 
   function setValue(event) {
     val = event.target.value;
@@ -32,6 +34,8 @@
     console.dir(usernameInput);
     // Doing this same but with a div element
     console.dir(someDiv);
+    // Call the empty() function to reset the 'val' value inside CustomInput
+    customInput.empty();
   }
 </script>
 
@@ -42,7 +46,7 @@
 <!-- <input type="text" bind:value={val} /> -->
 
 <!-- Trying to bind to val property of CustomInput -->
-<CustomInput bind:val />
+<CustomInput bind:val bind:this={customInput} />
 <!-- Binding chosenOption to selectedOption -->
 <Toggle bind:chosenOption={selectedOption} />
 
